@@ -1,0 +1,24 @@
+{
+  "name": "joeybotv2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rustywolf/JoeyBotV2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rustywolf/JoeyBotV2/issues"
+  },
+  "homepage": "https://github.com/Rustywolf/JoeyBotV2#readme",
+  "dependencies": {
+    "difflib": "^0.2.4",
+    "discord.js": "^8.0.0",
+    "jsdom": "^9.2.1"
+  }
+}
