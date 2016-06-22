@@ -17,6 +17,8 @@ exports.onLoad = function () {
                 return;
             }
         }
+        
+        //if (!message.author || !message.author.id == "96880206836424704") return; // Locks it to Rustywolf
 
         var result = "";
         var results = [];

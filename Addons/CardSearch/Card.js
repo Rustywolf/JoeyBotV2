@@ -19,8 +19,7 @@ function strip(value) {
 exports.prototype.parse = function(key, value) {
 	key = strip(key);
 	value = strip(value);
-	
-	//console.log(key + ": " + value);
+
 	switch(key) {
 		case "English":
 			this.set("name", value);
@@ -44,6 +43,7 @@ exports.prototype.parse = function(key, value) {
 			
 		// It's a monster
 		case "ATK/DEF":
+        case "ATK / DEF":
 			vals = value.split("/");
 			this.set("attack", vals[0]);
 			this.set("defense", vals[1]);
