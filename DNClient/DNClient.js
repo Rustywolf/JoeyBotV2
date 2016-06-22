@@ -3,7 +3,7 @@ var http = require('http');
 
 var InternalClient = require('./InternalClient.js');
 
-var exports = module.exports = function DNClient(username, password) {
+var exports = module.exports = function DNClient(username, password, admin) {
     events.EventEmitter.call(this);
     var client = this;
 
@@ -11,6 +11,7 @@ var exports = module.exports = function DNClient(username, password) {
     this.internal = null;
     this.username = null;
     this.loginToken = null;
+    this.admin = (admin && admin != false);
 
     this.connected = function () {
         return this.internal != null;
@@ -19,16 +20,16 @@ var exports = module.exports = function DNClient(username, password) {
     this.disconnect = function () {
         if (this.internal != null) {
             this.internal.disconnect();
-            this.internal.removeAllListeners();
-            this.emit("logout");
             this.internal = null;
-        } else {
-            throw new Error("Attempted to log out while not logged in!");
         }
+    }
+    
+    this.send = function(message) {
+        this.internal.send(message);
     }
 
     this.connect = function () {
-        this.internal = new InternalClient(this.username, this.loginToken);
+        this.internal = new InternalClient(this.username, this.loginToken, this.admin);
 
         this.internal.on("connect", function () {
             client.emit("connect");

@@ -7,6 +7,9 @@ var exports = module.exports = {};
 var MESSAGE_REGEX = /{(.*?)}/g;
 
 exports.onLoad = function () {
+    var exports = this;
+    var config = exports.config = global.configManager.getAddonConfig("CardSearch");
+    
     global.bot.on('message', function (message) {
 
         if (message.author) {
@@ -22,8 +25,8 @@ exports.onLoad = function () {
             results.push(result);
         }
 
-        if (results.length > global.config.card_limit_per_message) {
-            global.bot.reply(message, "Nyeh? are ya tryin' to kill me? (" + global.config.card_limit_per_message + " cards per message)");
+        if (results.length > exports.config.card_limit_per_message) {
+            global.bot.reply(message, "Nyeh? are ya tryin' to kill me? (" + exports.config.card_limit_per_message + " cards per message)");
             return;
         }
 

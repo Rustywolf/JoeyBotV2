@@ -1,7 +1,7 @@
 var exports = module.exports = {};
 
 exports.onLoad = function() {
-    commands.add("!test", function(args) {
-        console.log(args.join(" ")); 
+    commands.add("!nohomo", function(args, message) {
+        global.bot.reply(message, "https://en.wikipedia.org/wiki/No_homo");
     });
 }

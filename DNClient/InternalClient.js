@@ -3,12 +3,13 @@ var net = require('net');
 
 var DN_VERSION = "Connect23";
 
-var exports = module.exports = function InternalClient(username, loginToken) {
+var exports = module.exports = function InternalClient(username, loginToken, admin) {
     events.EventEmitter.call(this);
     var internal = this;
 
     this.username = username;
     this.loginToken = loginToken;
+    this.admin = admin;
     this.session = randomHex(32);
     this.socket = null;
 
@@ -36,7 +37,12 @@ var exports = module.exports = function InternalClient(username, loginToken) {
             host: "duelingnetwork.com",
             port: "1234"
         }, function () {
-            internal.send([DN_VERSION, internal.username, internal.loginToken, internal.session]); //, "Administrate"]);
+            var initMsg = [DN_VERSION, internal.username, internal.loginToken, internal.session];
+            if (internal.admin) {
+                initMsg.push("Administrate");
+            }
+            
+            internal.send(initMsg);
             internal.startHeartbeat();
             internal.emit("connect");
         });
@@ -64,6 +70,7 @@ var exports = module.exports = function InternalClient(username, loginToken) {
 
         this.socket.on('close', function () {
             internal.stopHeartbeat();
+            internal.emit("socketClose");
             internal.emit("disconnect");
         });
     }

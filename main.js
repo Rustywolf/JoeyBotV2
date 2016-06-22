@@ -1,7 +1,9 @@
-var config = global.config = require("./config.json");
+var configManager = global.configManager = require('./config.js');
+var config = global.config = require('./config.json');
 
-var Commands = require("./Commands.js");
-var Discord = require("discord.js");
+var AccountHandler = require('./AccountHandler.js');
+var Commands = require('./Commands.js');
+var Discord = require('discord.js');
 var DNClient = require('./DNClient/DNClient.js');
 
 
@@ -10,10 +12,8 @@ var DNClient = require('./DNClient/DNClient.js');
  * DN Client
  **/
 
-var client = global.client = new DNClient(config.dn.username, config.dn.password);
-client.on("login", function (response) {
-    client.connect();
-});
+var client = global.client = new DNClient(config.dn.username, config.dn.password, true);
+var accountHandler = global.accountHandler = new AccountHandler(client);
 
 
 
@@ -45,7 +45,7 @@ bot.on('message', function (message) {
 
     var args = message.content.split(" ");
     var command = args.shift();
-    
+
     commands.handle(command, args, message);
 });
 
