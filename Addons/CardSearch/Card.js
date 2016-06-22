@@ -95,8 +95,10 @@ exports.prototype.format = function() {
 		output += "*" + this.get("text") + "*\n";
 		
 		// Stats
-		output += "ATK: __" + this.get("attack") + "__ DEF: __" + this.get("defense") + "__";
+		output += "ATK: __" + this.get("attack") + "__ DEF: __" + this.get("defense") + "__\n";
 		
+        output += "http://yugioh.wikia.com/wiki/Card_Rulings:" + this.get("name").replace(/(\s)/g, "_");
+        
 		return output;
 	} else {
 		// Name
@@ -109,7 +111,9 @@ exports.prototype.format = function() {
 		output += "Property: __" + this.get("property") + "__\n\n";
 		
 		// Text
-		output += "*" + this.get("text") + "*";
+		output += "*" + this.get("text") + "*\n";
+        
+        output += "http://yugioh.wikia.com/wiki/Card_Rulings:" + this.get("name").replace(/(\s)/g, "_");
 		
 		return output;
 	}
