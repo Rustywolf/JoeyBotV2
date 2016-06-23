@@ -4,7 +4,7 @@ var difflib = require('difflib');
 var jsdom = require('jsdom');
 
 // 'Class' Imports 
-var Card = require('./card.js');
+var Card = require('./Card.js');
 
 // Define Export
 var exports = module.exports = {};
