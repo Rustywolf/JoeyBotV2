@@ -1,4 +1,4 @@
-var configManager = global.configManager = require('./config.js');
+var configManager = global.configManager = require('./Config.js');
 var config = global.config = require('./config.json');
 
 var AccountHandler = require('./AccountHandler.js');

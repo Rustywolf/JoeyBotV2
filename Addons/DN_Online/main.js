@@ -55,7 +55,7 @@ exports.onLoad = function () {
             foundUsers = true;
             checkInformation()
         } else if (args[0] == "Add admin calls") {
-            this.calls = (args.length - 1) / 3;
+            exports.calls = (args.length - 1) / 3;
             foundCalls = true;
             checkInformation()
         }
