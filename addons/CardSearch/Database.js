@@ -14,7 +14,7 @@ const URL = "yugioh.wikia.com";
 const SEARCH = "/api/v1/Search/List?query=";
 const SEARCH_LIMIT = "&limit=";
 
-const IGNORE_REGEX = /(\((.*?)\)|^Card (.*?):|List of)/i
+const IGNORE_REGEX = /(\((.*?)\)|^Card (.*?):|List of|^"(.*?)"$)/i
 
 const MATCH_RATIO = 0.8;
 
