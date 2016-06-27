@@ -78,10 +78,10 @@ exports.onLoad = function () {
                     if (!message.truncated) {
                         if (message.blacklisted) {
                             //append += " • __Blacklisted IP/Computer__ *by* **System**\n";
-                            append += "[**System**] Blacklisted IP/Computer";
+                            append += "<**System**> Blacklisted IP/Computer";
                         } else {
                             //append += " • __" + message.note + "__ *by* **" + message.admin + "** - ";
-                            append += "[**" + message.admin + "**] " + message.note + " - ";
+                            append += "<**" + message.admin + "**> " + message.note + " - ";
                             if (message.time && message.time == "N/A") {
                                 //append += "*Pre April 2016*\n";
                                 append += "**Pre April 2012**";
