@@ -6,7 +6,6 @@ exports.onLoad = function () {
     this.profileRequests = {};
 
     global.commands.add("!profile", function (args, message) {
-        console.log("rec");
         var requester = message.author;
         var user = args.join(" ").toLowerCase();
 
@@ -44,6 +43,7 @@ exports.onLoad = function () {
                 msg += "**Registered:** ";
                 msg += ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][date.getUTCMonth()] + " " + date.getDate() + ", " + date.getFullYear() + "\n";
 
+                msg += "**Status:** " + profile.online + "\n";
                 msg += "**Last Online:** " + profile.lastOnline;
                 
                 global.bot.sendMessage(global.config.channels.JoeyBotOffices, msg);

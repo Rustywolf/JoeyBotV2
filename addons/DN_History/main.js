@@ -165,7 +165,7 @@ function UserHistory(data) {
             } else {
                 regex.lastIndex = 0;
                 if (regex.test(message)) {
-                    var split = message.split(/\|+?/);
+                    var split = message.split(/\|+/);
 
                     var date = split[1].trim();
                     var time = false;
@@ -175,7 +175,7 @@ function UserHistory(data) {
                         var time = dateSplit[1].trim();
                     }
 
-                    var noteSplitBy = (!time) ? " by " : " - ";
+                    var noteSplitBy = (!time && !message.startsWith("Duel Note (")) ? " by " : " - ";
                     var note = split[0].trim();
                     var noteSplit = note.split(noteSplitBy);
                     var admin = noteSplit.pop().trim();
