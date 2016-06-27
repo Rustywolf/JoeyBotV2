@@ -70,30 +70,36 @@ exports.onLoad = function () {
                 msg += "**Username:** " + current.username + "\n";
                 msg += "**Status:** " + history.status + "\n";
                 msg += "**Strikes:** " + history.strikes + "\n";
-
+                
                 // This shit needs to be fixed
-                var append = "";
+                var append = "\n";
 
                 history.messages.forEach(function (message) {
                     if (!message.truncated) {
                         if (message.blacklisted) {
-                            append += " • __Blacklisted IP/Computer__ *by* **System**\n";
+                            //append += " • __Blacklisted IP/Computer__ *by* **System**\n";
+                            append += "[**System**] Blacklisted IP/Computer";
                         } else {
-                            append += " • __" + message.note + "__ *by* **" + message.admin + "** - ";
+                            //append += " • __" + message.note + "__ *by* **" + message.admin + "** - ";
+                            append += "[**" + message.admin + "**] " + message.note + " - ";
                             if (message.time && message.time == "N/A") {
-                                append += "*Pre April 2016*\n";
+                                //append += "*Pre April 2016*\n";
+                                append += "**Pre April 2012**";
                             } else {
                                 if (message.time) {
-                                    append += "**" + message.time + "** - "
+                                    //append += "**" + message.time + "** - "
+                                    append += "**" + message.time + "** - ";
                                 }
-                                append += "*" + message.date + "*\n";
+                                //append += "*" + message.date + "*\n";
+                                append += "**" + message.date + "**\n";
                             }
                         }
                     } else {
-                        append += "*Results truncated past 10 entries*\n";
+                        //append += "*Results truncated past 10 entries*\n";
+                        append == "Results truncated past 10 entries\n";
                     }
 
-                    if (append.length + msg.length >= 2000) {
+                    if (append.length + msg.length >= 1997) {
                         msgs.push(msg);
                         msg = append;
                     } else {
