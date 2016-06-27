@@ -55,6 +55,10 @@ var exports = module.exports = function AccountHandler(client) {
         }
     }
     
+    this.waitingOn = function(key) {
+        return (this.waiting[key] != undefined);
+    }
+    
     this.hasResolved = function(key) {
         delete this.waiting[key];
         this.checkIfResolved();

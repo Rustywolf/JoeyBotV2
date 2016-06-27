@@ -34,6 +34,8 @@ exports.onLoad = function () {
     }, [global.config.channels.JoeyBotOffices]);
 
     global.client.on('message', function (args) {
+        if (!global.accountHandler.waitingOn("online")) return;
+        
         if (args[0] == "Online users") {
             for (var i = 1; i < args.length; i += 2) {
                 var name = args[i];

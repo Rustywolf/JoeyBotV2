@@ -22,6 +22,7 @@ var exports = module.exports = function Commands() {
 
                     return false;
                 });
+                
             } else {
                 this.commands[command](args, message);
             }

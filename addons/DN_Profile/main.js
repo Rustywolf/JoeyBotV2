@@ -42,8 +42,10 @@ exports.onLoad = function () {
 
                 var date = new Date(Date.now() - profile.dateCreated * 1000);
                 msg += "**Registered:** ";
-                msg += ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][date.getUTCMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+                msg += ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][date.getUTCMonth()] + " " + date.getDate() + ", " + date.getFullYear() + "\n";
 
+                msg += "**Last Online:** " + profile.lastOnline;
+                
                 global.bot.sendMessage(global.config.channels.JoeyBotOffices, msg);
 
                 delete exports.profileRequests[profile.username.toLowerCase()];
@@ -61,6 +63,7 @@ exports.onLoad = function () {
                 if (exports.profileRequests[username] != undefined) {
                     global.bot.sendMessage(global.config.channels.JoeyBotOffices, username + " is not a registered user!");
                     delete exports.profileRequests[username];
+                    global.accountHandler.hasResolved("profile#" + profile.username.toLowerCase());
                 }
             }
         }
