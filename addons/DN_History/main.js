@@ -91,7 +91,7 @@ exports.onLoad = function () {
                                     append += "**" + message.time + "** - ";
                                 }
                                 //append += "*" + message.date + "*\n";
-                                append += "**" + message.date + "**\n";
+                                append += "" + message.date + "\n";
                             }
                         }
                     } else {
