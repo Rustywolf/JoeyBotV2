@@ -7,6 +7,15 @@ exports.onLoad = function () {
     this.historyRequests = [];
 
     global.commands.add("!history", function (args, message) {
+        handleHistory(args, message, false);
+    }, [global.config.channels.JoeyBotOffices]);
+
+    global.commands.add("!bbhistory", function (args, message) {
+        handleHistory(args, message, true);
+    }, [global.config.channels.JoeyBotOffices]);
+
+
+    function handleHistory(args, message, bb) {
         if (args.length < 1) return;
 
         var user = args.join(" ").toLowerCase();
@@ -33,7 +42,8 @@ exports.onLoad = function () {
                     username: user,
                     requesters: [
                         requester
-                    ]
+                    ],
+                    bb: bb
                 };
 
                 exports.historyRequests.push(statusRequest);
@@ -48,7 +58,7 @@ exports.onLoad = function () {
 
         global.accountHandler.handle(callback, "history#" + user);
 
-    }, [global.config.channels.JoeyBotOffices]);
+    }
 
     global.client.on('message', function (args) {
         if (args[0] == "Ban status") {
@@ -57,59 +67,7 @@ exports.onLoad = function () {
             var current = exports.historyRequests.shift();
 
             if (current.username != undefined) {
-                var msgs = [];
-
-                var msg = "";
-                current.requesters.forEach(function (requester) {
-                    msg += requester.mention() + ", ";
-                });
-
-                msg = msg.substring(0, msg.length - 2);
-                msg += "\n";
-
-                msg += "**Username:** " + current.username + "\n";
-                msg += "**Status:** " + history.status + "\n";
-                msg += "**Strikes:** " + history.strikes + "\n";
-                
-                // This shit needs to be fixed
-                var append = "\n";
-
-                history.messages.forEach(function (message) {
-                    if (!message.truncated) {
-                        if (message.blacklisted) {
-                            //append += " • __Blacklisted IP/Computer__ *by* **System**\n";
-                            append += "<**System**> Blacklisted IP/Computer";
-                        } else {
-                            //append += " • __" + message.note + "__ *by* **" + message.admin + "** - ";
-                            append += "<**" + message.admin + "**> " + message.note + " - ";
-                            if (message.time && message.time == "N/A") {
-                                //append += "*Pre April 2016*\n";
-                                append += "**Pre April 2012**";
-                            } else {
-                                if (message.time) {
-                                    //append += "**" + message.time + "** - "
-                                    append += "**" + message.time + "** - ";
-                                }
-                                //append += "*" + message.date + "*\n";
-                                append += "" + message.date + "\n";
-                            }
-                        }
-                    } else {
-                        //append += "*Results truncated past 10 entries*\n";
-                        append == "Results truncated past 10 entries\n";
-                    }
-
-                    if (append.length + msg.length >= 1997) {
-                        msgs.push(msg);
-                        msg = append;
-                    } else {
-                        msg += append;
-                    }
-
-                    append = "";
-                });
-
-                msgs.push(msg);
+                var msgs = current.bb ? formatBBHistory(current, history) : formatHistory(current, history);
 
                 msgs.forEach(function (msg, index) {
                     setTimeout(function () {
@@ -143,6 +101,122 @@ exports.onLoad = function () {
             }
         }
     });
+
+    function formatHistory(current, history) {
+        var msgs = [];
+
+        var msg = "";
+        current.requesters.forEach(function (requester) {
+            msg += requester.mention() + ", ";
+        });
+
+        msg = msg.substring(0, msg.length - 2);
+        msg += "\n";
+
+        msg += "**Username:** " + current.username + "\n";
+        msg += "**Status:** " + history.status + "\n";
+        msg += "**Strikes:** " + history.strikes + "\n";
+
+        // This shit needs to be fixed
+        var append = "\n";
+
+        history.messages.forEach(function (message) {
+            if (!message.truncated) {
+                if (message.blacklisted) {
+                    //append += " • __Blacklisted IP/Computer__ *by* **System**\n";
+                    append += "<**System**> Blacklisted IP/Computer\n";
+                } else {
+                    //append += " • __" + message.note + "__ *by* **" + message.admin + "** - ";
+                    append += "<**" + message.admin + "**> " + message.note + " - ";
+                    if (message.time && message.time == "N/A") {
+                        //append += "*Pre April 2016*\n";
+                        append += "**Pre April 2012**\n";
+                    } else {
+                        if (message.time) {
+                            //append += "**" + message.time + "** - "
+                            append += "**" + message.time + "** - ";
+                        }
+                        //append += "*" + message.date + "*\n";
+                        append += "" + message.date + "\n";
+                    }
+                }
+            } else {
+                //append += "*Results truncated past 10 entries*\n";
+                append == "Results unavailable past this point.";
+            }
+
+            if (append.length + msg.length >= 1997) {
+                msgs.push(msg);
+                msg = append;
+            } else {
+                msg += append;
+            }
+
+            append = "";
+        });
+
+        msgs.push(msg);
+
+        return msgs;
+    }
+
+    function formatBBHistory(current, history) {
+        var msgs = [];
+
+        var msg = "";
+        current.requesters.forEach(function (requester) {
+            msg += requester.mention() + ", ";
+        });
+
+        msg = msg.substring(0, msg.length - 2);
+        msg += "\n";
+
+        msg += "[b]Username:[/b] " + current.username + "\n";
+        msg += "[b]Status:[/b] " + history.status + "\n";
+        msg += "[b]Strikes:[/b] " + history.strikes + "\n";
+
+        // This shit needs to be fixed
+        var append = "\n";
+
+        history.messages.forEach(function (message) {
+            if (!message.truncated) {
+                if (message.blacklisted) {
+                    //append += " • __Blacklisted IP/Computer__ *by* **System**\n";
+                    append += "<[b]System[/b]> Blacklisted IP/Computer\n";
+                } else {
+                    //append += " • __" + message.note + "__ *by* **" + message.admin + "** - ";
+                    append += "<[b]" + message.admin + "[/b]> " + message.note + " - ";
+                    if (message.time && message.time == "N/A") {
+                        //append += "*Pre April 2016*\n";
+                        append += "[b]Pre April 2012[/b]\n";
+                    } else {
+                        if (message.time) {
+                            //append += "**" + message.time + "** - "
+                            append += "[b]" + message.time + "[/b] - ";
+                        }
+                        //append += "*" + message.date + "*\n";
+                        append += "" + message.date + "\n";
+                    }
+                }
+            } else {
+                //append += "*Results truncated past 10 entries*\n";
+                append == "Results unavailable past this point.";
+            }
+
+            if (append.length + msg.length >= 1997) {
+                msgs.push(msg);
+                msg = append;
+            } else {
+                msg += append;
+            }
+
+            append = "";
+        });
+
+        msgs.push(msg);
+
+        return msgs;
+    }
 }
 
 function UserHistory(data) {
