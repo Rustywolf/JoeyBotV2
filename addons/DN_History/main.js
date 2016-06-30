@@ -171,9 +171,9 @@ exports.onLoad = function () {
         msg = msg.substring(0, msg.length - 2);
         msg += "\n";
 
-        msg += "[b]Username:[/b] " + current.username + "\n";
-        msg += "[b]Status:[/b] " + history.status + "\n";
-        msg += "[b]Strikes:[/b] " + history.strikes + "\n";
+        msg += "[b]Username:[/b] " + current.username + "[br]\n";
+        msg += "[b]Status:[/b] " + history.status + "[br]\n";
+        msg += "[b]Strikes:[/b] " + history.strikes + "[br]\n";
 
         // This shit needs to be fixed
         var append = "\n";
@@ -182,20 +182,20 @@ exports.onLoad = function () {
             if (!message.truncated) {
                 if (message.blacklisted) {
                     //append += " • __Blacklisted IP/Computer__ *by* **System**\n";
-                    append += "<[b]System[/b]> Blacklisted IP/Computer\n";
+                    append += "<[b]System[/b]> Blacklisted IP/Computer[br]\n";
                 } else {
                     //append += " • __" + message.note + "__ *by* **" + message.admin + "** - ";
                     append += "<[b]" + message.admin + "[/b]> " + message.note + " - ";
                     if (message.time && message.time == "N/A") {
                         //append += "*Pre April 2016*\n";
-                        append += "[b]Pre April 2012[/b]\n";
+                        append += "[b]Pre April 2012[/b][br]\n";
                     } else {
                         if (message.time) {
                             //append += "**" + message.time + "** - "
                             append += "[b]" + message.time + "[/b] - ";
                         }
                         //append += "*" + message.date + "*\n";
-                        append += "" + message.date + "\n";
+                        append += "" + message.date + "[br]\n";
                     }
                 }
             } else {

@@ -19,6 +19,7 @@
   "dependencies": {
     "difflib": "^0.2.4",
     "discord.js": "^8.0.0",
-    "jsdom": "^9.2.1"
+    "jsdom": "^9.2.1",
+    "quiche": "0.0.10"
   }
 }
