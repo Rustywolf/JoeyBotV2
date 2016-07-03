@@ -102,6 +102,11 @@ exports.onLoad = function () {
         }
     });
 
+    global.client.on('disconnect', function () {
+        this.waitingOnRequest = false;
+        this.historyRequests = [];
+    });
+
     function formatHistory(current, history) {
         var msgs = [];
 
@@ -249,19 +254,19 @@ function UserHistory(data) {
 
                     if (split.length > 2) {
                         var newSplit = [];
-                        newSplit[1] = split[split.length-1];
+                        newSplit[1] = split[split.length - 1];
                         var tmpSplit = "";
-                        for (var i = 0; i < split.length-1; i++) {
+                        for (var i = 0; i < split.length - 1; i++) {
                             tmpSplit += split[i] + "|";
                         }
-                        
-                        tmpSplit = tmpSplit.substr(0, tmpSplit.length-1);
+
+                        tmpSplit = tmpSplit.substr(0, tmpSplit.length - 1);
                         newSplit[0] = tmpSplit;
-                        
+
                         console.log(newSplit[0] + " : " + newSplit[1]);
                         split = newSplit;
                     }
-                    
+
                     var date = split[1].trim();
                     var time = false;
                     if (date.indexOf("\\,") != -1) {

@@ -67,7 +67,11 @@ exports.onLoad = function () {
                 }
             }
         }
-    })
+    });
+    
+    global.client.on('disconnect', function() {
+        this.profileRequests = {};
+    });
 }
 
 function UserProfile(data) {

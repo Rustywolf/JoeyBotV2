@@ -67,6 +67,7 @@ exports.onLoad = function () {
         exports.onlineAdmins = [];
         exports.offdutyAdmins = [];
         exports.onlineUsers = 0;
+        exports.calls = 0;
 
         foundCalls = false;
         foundUsers = false;
