@@ -14,6 +14,9 @@ var exports = module.exports = function InternalClient(username, loginToken, adm
     this.socket = null;
 
     this.send = function (args) {
+        for (var i = 0; i < args.length; i++) {
+            args[i] = args[i].replace(/,/g, "\\,");
+        }
         var message = args.join(",");
         this.socket.write(message + "\0");
     }
