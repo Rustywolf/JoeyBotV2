@@ -12,8 +12,8 @@ var DNClient = require('./DNClient/DNClient.js');
  * DN Client
  **/
 
-var client = global.client = new DNClient(config.dn.username, config.dn.password, true);
-var accountHandler = global.accountHandler = new AccountHandler(client);
+//var client = global.client = new DNClient(config.dn.username, config.dn.password, true);
+//var accountHandler = global.accountHandler = new AccountHandler(client);
 
 
 
@@ -26,9 +26,10 @@ var bot = global.bot = new Discord.Client({
 });
 
 if (config.login.token) {
-    bot.loginWithToken(config.login.token);
+    bot.login(config.login.token);
 } else {
-    bot.login(config.login.email, config.login.password);
+    console.log("No token provided!");
+    process.exit(1);
 }
 
 var commands = global.commands = new Commands();

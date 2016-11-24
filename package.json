@@ -18,8 +18,8 @@
   "homepage": "https://github.com/Rustywolf/JoeyBotV2#readme",
   "dependencies": {
     "difflib": "^0.2.4",
-    "discord.js": "^8.0.0",
-    "jsdom": "^9.2.1",
+    "discord.js": "^10.0.1",
+    "jsdom": "^9.8.3",
     "quiche": "0.0.10",
     "raw.js": "^0.6.0"
   }

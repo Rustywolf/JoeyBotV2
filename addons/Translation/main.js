@@ -33,7 +33,7 @@ exports.onLoad = function () {
             }).on('end', function () {
                 var response = JSON.parse(body);
                 
-                global.bot.reply(message, "\nTranslation: " + response.text);
+                message.reply("\nTranslation: " + response.text);
             }).on('error', function (err) {
                 console.log("Error: " + err.message);
             });

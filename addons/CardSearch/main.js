@@ -28,13 +28,13 @@ exports.onLoad = function () {
         }
 
         if (results.length > exports.config.card_limit_per_message) {
-            global.bot.reply(message, "Nyeh? are ya tryin' to kill me? (" + exports.config.card_limit_per_message + " cards per message)");
+            message.reply("Nyeh? are ya tryin' to kill me? (" + exports.config.card_limit_per_message + " cards per message)");
             return;
         }
 
         var searches = [];
         var response = new Response(function (text) {
-            global.bot.reply(message, text);
+            message.reply(text);
         }, results.length);
 
         results.forEach(function (val) {

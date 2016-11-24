@@ -161,10 +161,10 @@ function printResults(request, results) {
 
     msgs.push(msg);
 
-    global.bot.sendMessage(request.channel, request.author.mention());
+    global.bot.user.sendMessage(request.channel, request.author.mention());
     msgs.forEach(function (msg, index) {
         setTimeout(function () {
-            global.bot.sendMessage(request.channel, msg);
+            global.bot.user.sendMessage(request.channel, msg);
         }, 250 * index);
     });
 }
